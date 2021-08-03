@@ -1,0 +1,2 @@
+# QuiWndBarModule
+ CMAKE-C++
