@@ -1,9 +1,11 @@
-#ifndef QtWndBarModule_h__
+ï»¿#ifndef QtWndBarModule_h__
 #define QtWndBarModule_h__
 #include "IQuiWndBarModule.h"
 #include <QtWidgets/QWidget>
 #include "PublicMarco.h"
 #include <QMap>
+#include <QPainter>
+#include <QPaintEvent>
 
 namespace Ui
 {
@@ -22,7 +24,7 @@ public:
 	/**
 	* @fn       GetName
 	* @author   Crack
-	* @brief    »ñÈ¡Ä£¿éÃû³Æ
+	* @brief    è·å–æ¨¡å—åç§°
 	* @date     2021/4/11 22:10
 	* @param
 	* @return
@@ -31,7 +33,7 @@ public:
 	/**
 	 * @fn       GetCompany
 	 * @author   Crack
-	 * @brief    »ñÈ¡¹«Ë¾Ãû³Æ
+	 * @brief    è·å–å…¬å¸åç§°
 	 * @date     2021/7/29 9:57
 	 * @param
 	 * @return
@@ -40,7 +42,7 @@ public:
 	/**
 	 * @fn       GetVersion
 	 * @author   Crack
-	 * @brief     »ñÈ¡°æ±¾ºÅ
+	 * @brief     è·å–ç‰ˆæœ¬å·
 	 * @date     2021/7/29 9:57
 	 * @param
 	 * @return
@@ -49,7 +51,7 @@ public:
 	/**
 	 * @fn       GetDescription
 	 * @author   Crack
-	 * @brief    ÃèÊöĞÅÏ¢
+	 * @brief    æè¿°ä¿¡æ¯
 	 * @date     2021/7/29 9:58
 	 * @param
 	 * @return
@@ -58,7 +60,7 @@ public:
 	/**
 	 * @fn       Initialise
 	 * @author   Crack
-	 * @brief    ³õÊ¼»¯
+	 * @brief    åˆå§‹åŒ–
 	 * @date     2021/7/29 9:58
 	 * @param
 	 * @return
@@ -67,7 +69,7 @@ public:
 	/**
 	 * @fn       Uninitialise
 	 * @author   Crack
-	 * @brief    Ğ¶ÔØĞÅÏ¢
+	 * @brief    å¸è½½ä¿¡æ¯
 	 * @date     2021/7/29 9:59
 	 * @param
 	 * @return
@@ -76,7 +78,7 @@ public:
 	/**
 	 * @fn       SetModuleParent
 	 * @author   Crack
-	 * @brief    ÉèÖÃ´°¿Ú¸¸¶ÔÏó
+	 * @brief    è®¾ç½®çª—å£çˆ¶å¯¹è±¡
 	 * @date     2021/7/29 9:59
 	 * @param
 	 * @return
@@ -86,7 +88,7 @@ public:
 	/**
 	 * @fn       EnableAcceptMouseEvent
 	 * @author   Crack
-	 * @brief    ½ÓÊÕÊó±êÊÂ¼ş
+	 * @brief    æ¥æ”¶é¼ æ ‡äº‹ä»¶
 	 * @date     2021/7/29 9:56
 	 * @param
 	 * @return
@@ -95,7 +97,7 @@ public:
 	/**
 	 * @fn       UnEnableAcceptMouseEvent
 	 * @author   Crack
-	 * @brief    ¹Ø±Õ½ÓÊÕÊó±êÊÂ¼ş
+	 * @brief    å…³é—­æ¥æ”¶é¼ æ ‡äº‹ä»¶
 	 * @date     2021/7/29 9:56
 	 * @param
 	 * @return
@@ -104,7 +106,7 @@ public:
 	/**
 	 * @fn       SetWndSylesheet
 	 * @author   Crack
-	 * @brief    ÉèÖÃ´°¿ÚÑùÊ½±í
+	 * @brief    è®¾ç½®çª—å£æ ·å¼è¡¨
 	 * @date     2021/7/28 17:37
 	 * @param
 	 * @return
@@ -120,17 +122,38 @@ public:
 	*/
 	virtual void AppendMenuModule(IQuiMenuModule* pMenuModule);
 
+	/**
+	Â * @fnÂ Â Â Â Â Â Â SetBarBackGroundColor
+	Â * @authorÂ Â Â Crack
+	Â * @briefÂ Â Â Â Â Â Â 
+	Â * @dateÂ Â Â Â Â 2021/8/16 16:42
+	Â * @paramÂ Â Â Â 
+	Â * @returnÂ Â Â 
+	*/
+	virtual void SetBarBackGroundColor(const QColor& bgColor);
+
+	/**
+	Â * @fnÂ Â Â Â Â Â Â SetBarSyleSheet
+	Â * @authorÂ Â Â Crack
+	Â * @briefÂ Â Â Â Â Â Â 
+	Â * @dateÂ Â Â Â Â 2021/8/16 16:44
+	Â * @paramÂ Â Â Â 
+	Â * @returnÂ Â Â 
+	*/
+	virtual void SetBarSyleSheet(const QString& strSyle);
+	
 protected:
 	void mousePressEvent(QMouseEvent* event);
 	void mouseMoveEvent(QMouseEvent* event);
 	void mouseReleaseEvent(QMouseEvent* event);
 	void mouseDoubleClickEvent(QMouseEvent* event);
 
+	void paintEvent(QPaintEvent* event);
 signals:
 	/**
 	 * @fn       SignalShowMaxWindow
 	 * @author   Crack
-	 * @brief     ×î´ó»¯´°¿Ú  
+	 * @brief     æœ€å¤§åŒ–çª—å£  
 	 * @date     2021/7/29 14:59
 	 * @param    
 	 * @return   
@@ -139,7 +162,7 @@ signals:
 	/**
 	 * @fn       SignalShowMinWindow
 	 * @author   Crack
-	 * @brief    ×îĞ¡»¯´°¿Ú   
+	 * @brief    æœ€å°åŒ–çª—å£   
 	 * @date     2021/7/29 14:59
 	 * @param    
 	 * @return   
@@ -148,7 +171,7 @@ signals:
 	/**
 	 * @fn       SignalCloseWindow
 	 * @author   Crack
-	 * @brief    ¹Ø±Õ´°¿Ú  
+	 * @brief    å…³é—­çª—å£  
 	 * @date     2021/7/29 14:59
 	 * @param    
 	 * @return   
@@ -159,7 +182,7 @@ public slots:
 	/**
 	 * @fn       SlotMenuClicked
 	 * @author   Crack
-	 * @brief     menu µã»÷ÊÂ¼ş  
+	 * @brief     menu ç‚¹å‡»äº‹ä»¶  
 	 * @date     2021/7/29 14:57
 	 * @param    
 	 * @return   
@@ -168,17 +191,21 @@ public slots:
 
 private:
     Ui::QuiWndBarModuleClass *ui;
-	// Êó±êÉÏ´ÎÒÆ¶¯¿ªÊ¼Ê±Ïà¶ÔÆÁÄ»µÄÎ»ÖÃ
+	// é¼ æ ‡ä¸Šæ¬¡ç§»åŠ¨å¼€å§‹æ—¶ç›¸å¯¹å±å¹•çš„ä½ç½®
 	QPoint m_PntStart;
-	// Êó±êÊÇ·ñ³ÖĞø°´ÏÂ
+	// é¼ æ ‡æ˜¯å¦æŒç»­æŒ‰ä¸‹
 	bool m_bKeepPressed;
-	// ´°¿ÚÑùÊ½
+	// çª—å£æ ·å¼
 	QString m_WndStyle;
 	// QMouseEnable
 	bool m_bMouseEvent;
-	// ´æ´¢Menu²Ëµ¥
+	// å­˜å‚¨Menuèœå•
 	//QMap<QString, QMenu*> m_MenuModuleMap;
 	QMap<QString, IQuiMenuModule*> m_MenuModuleMap;
+
+	QString m_strStyleSheet;
+
+	QColor  m_BackGroundColor;
 	
 };
 DECLARE_MODULE(QuiWndBar, extern)

@@ -26,10 +26,7 @@
    <string>QuiWndBarModule</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget#CenterWidget
-{
-	background-color:#8B8B8B;
-}</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -66,13 +63,13 @@
        <number>1</number>
       </property>
       <property name="topMargin">
-       <number>10</number>
+       <number>5</number>
       </property>
       <property name="rightMargin">
        <number>0</number>
       </property>
       <property name="bottomMargin">
-       <number>1</number>
+       <number>0</number>
       </property>
       <item>
        <widget class="QWidget" name="HWndBarBox" native="true">

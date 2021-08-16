@@ -6,49 +6,12 @@
 #include <QMouseEvent>
 #include "IQuiMenuModule.h"
 
-const QString qStrWndBarStyle = "QWidget#CenterWidget"
-"{"
-"	background - color:#8B8B8B;"
-"}"
-"QPushButton{"
-"	border: 0px solid #9EA0A4;"
-"	background - color: #8B8B8B;"
-"	border - radius: 0px;"
-"	color: rgb(255, 255, 255);"
-"}"
-"QPushButton:pressed{"
-"	padding - right:0px;"
-"	padding - bottom:0px;"
-"	padding - top:0px;"
-"	padding - left:0px;"
-"	border: 0px solid #5388f3;"
-"	background:#F0F0F0;"
-"	color: rgb(255, 255, 255);"
-"}"
-"QPushButton:!hover{"
-"	border: 0px solid #5388f3;"
-"	background:#8B8B8B;"
-"	color: rgb(255, 255, 255);"
-"}"
-"QPushButton:hover{"
-"	border: 0px solid #5388f3;"
-"	background:#F0F0F0;"
-"	color: rgb(0, 0, 0);"
-"}";
 CQuiWndBarModule::CQuiWndBarModule(QWidget *parent)
     : QWidget(parent)
 	, ui(new Ui::QuiWndBarModuleClass)
 	, m_bMouseEvent(false)
 {
     ui->setupUi(this);
-
-	Initialise();
-
-	connect(ui->MinBtn, SIGNAL(clicked()), this, SIGNAL(SignalShowMinWindow()));
-
-	connect(ui->MaxBtn, SIGNAL(clicked()), this, SIGNAL(SignalShowMaxWindow()));
-
-	connect(ui->CloseBtn, SIGNAL(clicked()), this, SIGNAL(SignalCloseWindow()));
 }
 CQuiWndBarModule::~CQuiWndBarModule()
 {
@@ -76,10 +39,16 @@ std::string CQuiWndBarModule::GetDescription() const
 
 bool CQuiWndBarModule::Initialise()
 {
-	ui->CenterWidget->setStyleSheet(qStrWndBarStyle);
 	ui->MinBtn->setIcon(style()->standardIcon(QStyle::SP_TitleBarMinButton));
 	ui->MaxBtn->setIcon(style()->standardIcon(QStyle::SP_TitleBarNormalButton));
 	ui->CloseBtn->setIcon(style()->standardIcon(QStyle::SP_TitleBarCloseButton));
+	
+	connect(ui->MinBtn, SIGNAL(clicked()), this, SIGNAL(SignalShowMinWindow()));
+
+	connect(ui->MaxBtn, SIGNAL(clicked()), this, SIGNAL(SignalShowMaxWindow()));
+
+	connect(ui->CloseBtn, SIGNAL(clicked()), this, SIGNAL(SignalCloseWindow()));
+
 	return true;
 }
 
@@ -122,11 +91,24 @@ void CQuiWndBarModule::AppendMenuModule(IQuiMenuModule* pMenuModule)
 		QPushButton* btn = new QPushButton(strMenuModuleName,this);
 		btn->setFlat(true);
 		connect(btn, &QPushButton::clicked, this, &CQuiWndBarModule::SlotMenuClicked);
-		btn->setFixedSize(QSize(70, 30));
+		btn->setFixedSize(QSize(70, 25));
 		layout->insertWidget(nSize - 1, btn);
 		m_MenuModuleMap[strMenuModuleName] = pMenuModule;
 	}
 }
+
+void CQuiWndBarModule::SetBarBackGroundColor(const QColor& bgColor)
+{
+	m_BackGroundColor = bgColor;
+}
+
+void CQuiWndBarModule::SetBarSyleSheet(const QString& strSyle)
+{
+	m_strStyleSheet = strSyle;
+
+	ui->CenterWidget->setStyleSheet(m_strStyleSheet);
+}
+
 void CQuiWndBarModule::mouseMoveEvent(QMouseEvent* event)
 {
 	QWidget* mWidParent = qobject_cast<QWidget*>(parentWidget());
@@ -209,6 +191,28 @@ void CQuiWndBarModule::mouseDoubleClickEvent(QMouseEvent* event)
 		QWidget::mouseDoubleClickEvent(event);
 	}
 }
+
+void CQuiWndBarModule::paintEvent(QPaintEvent* event)
+{
+	if (!m_BackGroundColor.isValid())
+	{
+		return;
+	}
+	Q_UNUSED(event);
+
+	QPainter p(this);
+
+	p.setPen(Qt::NoPen);
+
+	p.setBrush(m_BackGroundColor);
+
+	QRect rect1 = this->rect();
+	rect1.setHeight(rect1.height() - 1);
+
+	p.drawRect(rect1);
+
+}
+
 void CQuiWndBarModule::SlotMenuClicked()
 {
 	QPushButton* btn = qobject_cast<QPushButton*>(sender());

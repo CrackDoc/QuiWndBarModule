@@ -119,5 +119,7 @@ public:
 	 * @return   
 	*/
 	virtual void SetWidget(QWidget *widget) = 0;
+
+	
 };
 #endif // IQuiMenuModule_h__

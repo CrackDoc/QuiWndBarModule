@@ -119,6 +119,26 @@ public:
 	 * @return   
 	*/
 	virtual void AppendMenuModule(IQuiMenuModule* pMenuModule) = 0;
+
+	/**
+	 * @fn       SetBarBackGroundColor
+	 * @author   Crack
+	 * @brief       
+	 * @date     2021/8/16 16:42
+	 * @param    
+	 * @return   
+	*/
+	virtual void SetBarBackGroundColor(const QColor& bgColor) = 0;
+
+	/**
+	 * @fn       SetBarSyleSheet
+	 * @author   Crack
+	 * @brief       
+	 * @date     2021/8/16 16:44
+	 * @param    
+	 * @return   
+	*/
+	virtual void SetBarSyleSheet(const QString& strSyle) = 0;
 	
 };
 #endif // IQuiWndBarModule_h__
