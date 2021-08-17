@@ -141,6 +141,16 @@ public:
 	 * @return   
 	*/
 	virtual void SetBarSyleSheet(const QString& strSyle);
+
+	/**
+	 * @fn       SetGeometryWidget
+	 * @author   Crack
+	 * @brief       
+	 * @date     2021/8/17 18:27
+	 * @param    
+	 * @return   
+	*/
+	virtual void SetGeometryWidget(QWidget* widget);
 	
 protected:
 	void mousePressEvent(QMouseEvent* event);
@@ -206,6 +216,10 @@ private:
 	QString m_strStyleSheet;
 
 	QColor  m_BackGroundColor;
+
+	QWidget* m_pGeometryWidget;
+
+	bool m_bMaxWindow;
 	
 };
 DECLARE_MODULE(QuiWndBar, extern)

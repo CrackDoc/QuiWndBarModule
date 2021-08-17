@@ -139,6 +139,16 @@ public:
 	 * @return   
 	*/
 	virtual void SetBarSyleSheet(const QString& strSyle) = 0;
+
+	/**
+	 * @fn       SetGeometryWidget
+	 * @author   Crack
+	 * @brief       
+	 * @date     2021/8/17 18:26
+	 * @param    
+	 * @return   
+	*/
+	virtual void SetGeometryWidget(QWidget *widget) = 0;
 	
 };
 #endif // IQuiWndBarModule_h__

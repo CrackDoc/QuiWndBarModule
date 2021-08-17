@@ -5,11 +5,14 @@
 #include <QMenu>
 #include <QMouseEvent>
 #include "IQuiMenuModule.h"
+#include <QDesktopWidget>
 
 CQuiWndBarModule::CQuiWndBarModule(QWidget *parent)
     : QWidget(parent)
 	, ui(new Ui::QuiWndBarModuleClass)
 	, m_bMouseEvent(false)
+	, m_pGeometryWidget(parent)
+	, m_bMaxWindow(false)
 {
     ui->setupUi(this);
 }
@@ -109,9 +112,14 @@ void CQuiWndBarModule::SetBarSyleSheet(const QString& strSyle)
 	ui->CenterWidget->setStyleSheet(m_strStyleSheet);
 }
 
+void CQuiWndBarModule::SetGeometryWidget(QWidget* widget)
+{
+	m_pGeometryWidget = widget;
+}
+
 void CQuiWndBarModule::mouseMoveEvent(QMouseEvent* event)
 {
-	QWidget* mWidParent = qobject_cast<QWidget*>(parentWidget());
+	QWidget* mWidParent = m_pGeometryWidget;
 	// 持续按住才做对应事件
 	if (mWidParent && m_bKeepPressed)
 	{
@@ -173,16 +181,25 @@ void CQuiWndBarModule::mouseReleaseEvent(QMouseEvent* event)
 
 void CQuiWndBarModule::mouseDoubleClickEvent(QMouseEvent* event)
 {
-	QWidget* mWidParent = qobject_cast<QWidget*>(parentWidget());
+	QWidget* mWidParent = m_pGeometryWidget;
 	if (mWidParent)
 	{
-		if (mWidParent->isMaximized())
+		if (m_bMaxWindow)
 		{
+			m_bMaxWindow = !m_bMaxWindow;
 			mWidParent->showNormal();
 		}
 		else
 		{
+			m_bMaxWindow = !m_bMaxWindow;
+			QDesktopWidget* desktopWidget = QApplication::desktop();
+			//QRect screenRect = desktopWidget->screenGeometry();  //屏幕区域
+			QRect screenRect = desktopWidget->availableGeometry();  //屏幕区域
+			int w = screenRect.width() + 18;
+			int h = screenRect.height() + 18;
 			mWidParent->showMaximized();
+			mWidParent->setGeometry(-9, -9, w, h);
+
 		}
 	}
 	//向其他窗口发送移动事件
