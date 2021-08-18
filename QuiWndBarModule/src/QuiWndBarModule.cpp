@@ -6,7 +6,7 @@
 #include <QMouseEvent>
 #include "IQuiMenuModule.h"
 #include <QDesktopWidget>
-
+#include <QStyle>
 CQuiWndBarModule::CQuiWndBarModule(QWidget *parent)
     : QWidget(parent)
 	, ui(new Ui::QuiWndBarModuleClass)
@@ -193,8 +193,8 @@ void CQuiWndBarModule::mouseDoubleClickEvent(QMouseEvent* event)
 		{
 			m_bMaxWindow = !m_bMaxWindow;
 			QDesktopWidget* desktopWidget = QApplication::desktop();
-			//QRect screenRect = desktopWidget->screenGeometry();  //屏幕区域
-			QRect screenRect = desktopWidget->availableGeometry();  //屏幕区域
+			QRect screenRect = desktopWidget->screenGeometry();  //屏幕区域
+			//QRect screenRect = desktopWidget->availableGeometry();  //屏幕区域
 			int w = screenRect.width() + 18;
 			int h = screenRect.height() + 18;
 			mWidParent->showMaximized();

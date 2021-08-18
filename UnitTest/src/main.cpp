@@ -1,12 +1,12 @@
 #include <QtWidgets/QApplication>
-#include "QuiWndBarModule.h"
-#include <QMenu>
+//#include "QuiWndBarModule.h"
+//#include <QMenu>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-	CQuiWndBarModule w;
+	//CQuiWndBarModule w;
 
  //   QMenu* pMenu0 = new QMenu(QString::fromLocal8Bit("ÎÄ¼þ"),&w);
 	//pMenu0->setFixedWidth(200);
@@ -29,6 +29,6 @@ int main(int argc, char *argv[])
 	//QMenu* pMenu7 = new QMenu(QString::fromLocal8Bit("°ïÖú"), &w);
 	//w.AppendMenuModule(pMenu7);
 
-    w.show();
+    //w.show();
     return a.exec();
 }
