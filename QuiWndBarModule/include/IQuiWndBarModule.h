@@ -73,44 +73,6 @@ public:
 	virtual bool Uninitialise() = 0;
 
 	/**
-	 * @fn       SetModuleParent
-	 * @author   Crack
-	 * @brief    设置窗口父对象 
-	 * @date     2021/7/29 9:59
-	 * @param    
-	 * @return   
-	*/
-	virtual void SetModuleParent(QWidget* widget) = 0;
-
-	/**
-	 * @fn       EnableAcceptMouseEvent
-	 * @author   Crack
-	 * @brief    接收鼠标事件
-	 * @date     2021/7/29 9:56
-	 * @param    
-	 * @return   
-	*/
-	virtual void EnableAcceptMouseEvent() = 0;
-	/**
-	 * @fn       UnEnableAcceptMouseEvent
-	 * @author   Crack
-	 * @brief    关闭接收鼠标事件
-	 * @date     2021/7/29 9:56
-	 * @param
-	 * @return
-	*/
-	virtual void UnEnableAcceptMouseEvent() = 0;
-	/**
-	 * @fn       SetWndSylesheet
-	 * @author   Crack
-	 * @brief    设置窗口样式表
-	 * @date     2021/7/28 17:37
-	 * @param    
-	 * @return   
-	*/
-	virtual void SetWndSyleSheet(const QString& style) = 0;
-
-	/**
 	 * @fn       AppendMenuModule
 	 * @author   Crack
 	 * @brief       
@@ -121,34 +83,23 @@ public:
 	virtual void AppendMenuModule(IQuiMenuModule* pMenuModule) = 0;
 
 	/**
-	 * @fn       SetBarBackGroundColor
+	 * @fn       SetBarWndWidget
 	 * @author   Crack
 	 * @brief       
-	 * @date     2021/8/16 16:42
+	 * @date     2021/8/19 11:16
 	 * @param    
 	 * @return   
 	*/
-	virtual void SetBarBackGroundColor(const QColor& bgColor) = 0;
+	virtual void SetBarWndWidget(QWidget* widget) = 0;
 
 	/**
-	 * @fn       SetBarSyleSheet
+	 * @fn       GetBarWndWidget
 	 * @author   Crack
 	 * @brief       
-	 * @date     2021/8/16 16:44
+	 * @date     2021/8/19 11:17
 	 * @param    
 	 * @return   
 	*/
-	virtual void SetBarSyleSheet(const QString& strSyle) = 0;
-
-	/**
-	 * @fn       SetGeometryWidget
-	 * @author   Crack
-	 * @brief       
-	 * @date     2021/8/17 18:26
-	 * @param    
-	 * @return   
-	*/
-	virtual void SetGeometryWidget(QWidget *widget) = 0;
-	
+	virtual QWidget* GetBarWndWidget() = 0;
 };
 #endif // IQuiWndBarModule_h__

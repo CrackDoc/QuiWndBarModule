@@ -4,15 +4,10 @@
 #include <QtWidgets/QWidget>
 #include "PublicMarco.h"
 #include <QMap>
-#include <QPainter>
-#include <QPaintEvent>
 
-namespace Ui
-{
-	class QuiWndBarModuleClass;
-}
 class QMenu;
 class IQuiMenuModule;
+class CQuiBaseWndBar;
 class CQuiWndBarModule : public QWidget,public IQuiWndBarModule
 {
     Q_OBJECT
@@ -76,151 +71,40 @@ public:
 	*/
 	virtual bool Uninitialise();
 	/**
-	 * @fn       SetModuleParent
-	 * @author   Crack
-	 * @brief    设置窗口父对象
-	 * @date     2021/7/29 9:59
-	 * @param
-	 * @return
-	*/
-	virtual void SetModuleParent(QWidget* widget);
-
-	/**
-	 * @fn       EnableAcceptMouseEvent
-	 * @author   Crack
-	 * @brief    接收鼠标事件
-	 * @date     2021/7/29 9:56
-	 * @param
-	 * @return
-	*/
-	virtual void EnableAcceptMouseEvent();
-	/**
-	 * @fn       UnEnableAcceptMouseEvent
-	 * @author   Crack
-	 * @brief    关闭接收鼠标事件
-	 * @date     2021/7/29 9:56
-	 * @param
-	 * @return
-	*/
-	virtual void UnEnableAcceptMouseEvent();
-	/**
-	 * @fn       SetWndSylesheet
-	 * @author   Crack
-	 * @brief    设置窗口样式表
-	 * @date     2021/7/28 17:37
-	 * @param
-	 * @return
-	*/
-	virtual void SetWndSyleSheet(const QString &syle);
-	/**
-	 * @fn       AppendMenuModule
-	 * @author   Crack
-	 * @brief
-	 * @date     2021/7/28 17:42
-	 * @param
-	 * @return
+	* @fn       AppendMenuModule
+	* @author   Crack
+	* @brief
+	* @date     2021/7/28 17:42
+	* @param
+	* @return
 	*/
 	virtual void AppendMenuModule(IQuiMenuModule* pMenuModule);
 
 	/**
-	 * @fn       SetBarBackGroundColor
+ 	* @fn       SetBarWndWidget
+ 	* @author   Crack
+ 	* @brief       
+ 	* @date     2021/8/19 11:16
+ 	* @param    
+ 	* @return   
+	*/
+	virtual void SetBarWndWidget(QWidget* widget);
+
+	/**
+	 * @fn       GetBarWndWidget
 	 * @author   Crack
 	 * @brief       
-	 * @date     2021/8/16 16:42
+	 * @date     2021/8/19 11:17
 	 * @param    
 	 * @return   
 	*/
-	virtual void SetBarBackGroundColor(const QColor& bgColor);
-
-	/**
-	 * @fn       SetBarSyleSheet
-	 * @author   Crack
-	 * @brief       
-	 * @date     2021/8/16 16:44
-	 * @param    
-	 * @return   
-	*/
-	virtual void SetBarSyleSheet(const QString& strSyle);
-
-	/**
-	 * @fn       SetGeometryWidget
-	 * @author   Crack
-	 * @brief       
-	 * @date     2021/8/17 18:27
-	 * @param    
-	 * @return   
-	*/
-	virtual void SetGeometryWidget(QWidget* widget);
-	
-protected:
-	void mousePressEvent(QMouseEvent* event);
-	void mouseMoveEvent(QMouseEvent* event);
-	void mouseReleaseEvent(QMouseEvent* event);
-	void mouseDoubleClickEvent(QMouseEvent* event);
-
-	void paintEvent(QPaintEvent* event);
-signals:
-	/**
-	 * @fn       SignalShowMaxWindow
-	 * @author   Crack
-	 * @brief     最大化窗口  
-	 * @date     2021/7/29 14:59
-	 * @param    
-	 * @return   
-	*/
-	void SignalShowMaxWindow();
-	/**
-	 * @fn       SignalShowMinWindow
-	 * @author   Crack
-	 * @brief    最小化窗口   
-	 * @date     2021/7/29 14:59
-	 * @param    
-	 * @return   
-	*/
-	void SignalShowMinWindow();
-	/**
-	 * @fn       SignalCloseWindow
-	 * @author   Crack
-	 * @brief    关闭窗口  
-	 * @date     2021/7/29 14:59
-	 * @param    
-	 * @return   
-	*/
-	void SignalCloseWindow();
-
-public slots:
-	/**
-	 * @fn       SlotMenuClicked
-	 * @author   Crack
-	 * @brief     menu 点击事件  
-	 * @date     2021/7/29 14:57
-	 * @param    
-	 * @return   
-	*/
-	void SlotMenuClicked();
+	virtual QWidget* GetBarWndWidget();
 
 private:
-    Ui::QuiWndBarModuleClass *ui;
-	// 鼠标上次移动开始时相对屏幕的位置
-	QPoint m_PntStart;
-	// 鼠标是否持续按下
-	bool m_bKeepPressed;
-	// 窗口样式
-	QString m_WndStyle;
-	// QMouseEnable
-	bool m_bMouseEvent;
 	// 存储Menu菜单
-	//QMap<QString, QMenu*> m_MenuModuleMap;
 	QMap<QString, IQuiMenuModule*> m_MenuModuleMap;
 
-	QString m_strStyleSheet;
-
-	QColor  m_BackGroundColor;
-
-	QWidget* m_pGeometryWidget;
-
-	bool m_bMaxWindow;
-	
+	CQuiBaseWndBar* m_pQuiBaseWndBar;
 };
 DECLARE_MODULE(QuiWndBar, extern)
 #endif // QtWndBarModule_h__

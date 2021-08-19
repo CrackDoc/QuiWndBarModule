@@ -88,3 +88,10 @@ QT5_USE_MODULES(${PROJECT_NAME} Widgets)
 
 
 
+find_package(QuiBaseUi)
+if(QuiBaseUi_FOUND)
+  include_directories(${QuiBaseUi_DIR}/include)
+  link_directories(${QuiBaseUi_DIR}/lib)
+  target_link_libraries(${PROJECT_NAME} debug ${QuiBaseUi_LIBRARY_DEBUG})
+  target_link_libraries(${PROJECT_NAME} optimized ${QuiBaseUi_LIBRARY})
+endif(QuiBaseUi_FOUND)
